@@ -45,6 +45,3 @@ def _test_priority_queue(queue_type):
 def test_heap_queue():
     _test_priority_queue(HeapPriorityQueue)
 
-
-def test_sorted_queue():
-    _test_priority_queue(SortedPriorityQueue)

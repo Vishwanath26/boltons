@@ -52,3 +52,22 @@ def test_table_obj():
     t4 = Table.from_object(TestType())
     assert len(t4) == 1
     assert 'greeting' in t4.headers
+
+def test_table_to_text_column_sizing():
+    """Test that column width is based on content width not row width."""
+    #     short       | short
+    # ----------------|------
+    # very_long_value |   x
+    t = Table([['short', 'short'], ['very_long_value', 'x']])
+    text = t.to_text()
+    lines = text.splitlines()
+
+    # First row header should be padded to match widest content in column
+    # 'short' should be padded to width of 'very_long_value' (15 chars)
+    first_col_width = len(lines[0].split('|')[0].rstrip())
+    second_row_first_col = len(lines[2].split('|')[0].rstrip())
+
+    assert first_col_width == second_row_first_col, (
+        f"Column width inconsistent: header col width {first_col_width} "
+        f"!= content col width {second_row_first_col}"
+    )
