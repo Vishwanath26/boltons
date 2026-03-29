@@ -97,12 +97,12 @@ class BasePriorityQueue:
 
     Args:
         priority_key (callable): A function that takes *priority* as
-            passed in by :meth:`add` and returns a real number
+            passed in by :meth:`add` and returns an integer
             representing the effective priority.
 
     """
     # negating priority means larger numbers = higher priority
-    _default_priority_key = staticmethod(lambda p: -float(p or 0))
+    _default_priority_key = staticmethod(lambda p: -int(p or 0))
     _backend_type = list
 
     def __init__(self, **kw):
